@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cryptography Encryption</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Cryptography Encryption</h2>
+
+    <!-- Encryption Form -->
+    <form th:action="@{/encrypt}" method="post">
+        <input type="text" name="inputText" placeholder="Enter text to encrypt"
+               th:value="${originalText} ?: ''" required>
+        <button type="submit">Encrypt</button>
+    </form>
+
+    <p><strong>Original Text:</strong> <span th:text="${originalText} ?: 'No input yet'"></span></p>
+    <p><strong>Encrypted Text:</strong> <span th:text="${encryptedText} ?: 'No encryption yet'"></span></p>
+
+    <!-- Decryption Form -->
+    <form th:action="@{/decrypt}" method="post">
+        <input type="text" name="encryptedText" placeholder="Enter text to decrypt"
+               th:value="${encryptedText} ?: ''" required>
+        <button type="submit">Decrypt</button>
+    </form>
+
+    <p><strong>Decrypted Text:</strong> <span th:text="${decryptedText} ?: 'No decryption yet'"></span></p>
+</div>
+</body>
+</html>
