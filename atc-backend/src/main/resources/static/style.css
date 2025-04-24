@@ -1,3 +1,4 @@
+
 :root {
     /* Color Palette */
     --primary-color: #1a2a3a;
@@ -124,6 +125,45 @@ body {
 .tab-btn.active {
     background: linear-gradient(135deg, var(--secondary-color), var(--info-color));
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+}
+
+/* Mode Switcher */
+.mode-switcher {
+    display: flex;
+    margin-bottom: var(--spacing-lg);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-xs);
+    backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mode-btn {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+    font-size: var(--font-size-base);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+}
+
+.mode-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, var(--secondary-color), var(--info-color));
+    color: white;
+    box-shadow: var(--shadow-sm);
 }
 
 /* Tab Content */
@@ -317,6 +357,17 @@ button:active {
     transform: translateY(0);
 }
 
+.button-group {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-lg) 0;
+}
+
+.button-group button {
+    flex: 1;
+    margin: 0;
+}
+
 /* Animations */
 @keyframes pulse {
     from { transform: scale(1); }
@@ -358,6 +409,10 @@ button:active {
     .algorithm-icon {
         margin-bottom: var(--spacing-sm);
     }
+
+    .button-group {
+        flex-direction: column;
+    }
 }
 
 /* Loading State */
@@ -398,4 +453,15 @@ button:active {
 
 .copy-btn:hover {
     background: var(--secondary-color);
+}
+
+/* Verification Result */
+.verification-success {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.verification-failure {
+    color: var(--accent-color);
+    font-weight: 600;
 }

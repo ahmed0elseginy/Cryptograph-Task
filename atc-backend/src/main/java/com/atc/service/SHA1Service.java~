@@ -1,6 +1,5 @@
 package com.atc.service;
 
-//Done
 public class SHA1Service {
 
     public String hash(String text) {
