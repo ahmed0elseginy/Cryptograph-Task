@@ -1,30 +1,19 @@
-# First stage: Build the application
-FROM maven:3.9.6-eclipse-temurin-17 as builder
+# Use an official Maven image with Java 17 preinstalled
+FROM maven:3.9.6-eclipse-temurin-17
 
-# Set the working directory
+# Set work directory
 WORKDIR /app
 
-# Copy pom.xml and download dependencies
+# Copy the pom.xml and download dependencies early (layer caching)
 COPY pom.xml .
+
 RUN mvn dependency:go-offline
 
-# Copy the rest of the application source code
+# Copy the rest of the application code
 COPY src ./src
 
 # Package the application
 RUN mvn clean package -DskipTests
 
-# Second stage: Run the application
-FROM eclipse-temurin:17-jdk-jammy
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the jar file from the builder stage
-COPY --from=builder /app/target/*.jar app.jar
-
-# Expose port 8080
-EXPOSE 8080
-
 # Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "target/atc-backend-0.0.1-SNAPSHOT.jar"]
