@@ -218,20 +218,5 @@ public class RSAGeneratorService {
         return new String(decryptedBytes, StandardCharsets.UTF_8);
     }
 
-    // Main
-//    public static void main(String[] args) {
-//        RSAKeyPair keys = generateRSAKeys();
-//
-//        System.out.println("Public Key: (" + keys.n + ", " + keys.e + ")");
-//        System.out.println("Private Key: (" + keys.n + ", " + keys.d + ")");
-//
-//        String message = "Lorem ipsum dolor sit, amet consectetur s";
-//
-//        String encrypted = encryptTextBase64(message, keys.n, keys.e);
-//        String decrypted = decryptTextBase64(encrypted, keys.n, keys.d);
-//
-//        System.out.println("Original Message: " + message);
-//        System.out.println("Encrypted (base64): " + encrypted);
-//        System.out.println("Decrypted Message: " + decrypted);
-//    }
+
 }

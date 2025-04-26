@@ -5,500 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Encryption System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            /* Color Palette */
-            --primary-color: #1a2a3a;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --info-color: #2980b9;
-            --card-bg: rgba(26, 42, 58, 0.85);
-
-            /* Spacing */
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 1.5rem;
-            --spacing-lg: 2rem;
-            --spacing-xl: 3rem;
-
-            /* Typography */
-            --font-size-base: 1rem;
-            --font-size-lg: 1.25rem;
-            --font-size-xl: 1.5rem;
-            --font-size-xxl: 2rem;
-
-            /* Effects */
-            --transition-base: all 0.3s ease;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
-            --blur-amount: 10px;
-        }
-
-        /* Base Styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: var(--light-color);
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-            background:
-                    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                    url('image/img_1.png') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--spacing-xl) var(--spacing-md);
-        }
-
-        /* Header Styles */
-        .header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-            position: relative;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .logo-inside {
-            width: 265px;
-            height: 120px;
-            margin-bottom: var(--spacing-lg);
-            filter: drop-shadow(0 0 15px rgba(52, 152, 219, 0.6));
-            animation: pulse 2s infinite alternate;
-        }
-
-        .title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin-bottom: var(--spacing-sm);
-            background: linear-gradient(135deg, var(--secondary-color), var(--success-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: var(--shadow-sm);
-        }
-
-        .subtitle {
-            font-size: clamp(1rem, 2vw, 1.3rem);
-            color: rgba(255, 255, 255, 0.9);
-            margin: 0 auto var(--spacing-lg);
-            max-width: 700px;
-            line-height: 1.8;
-        }
-
-        /* Tab Navigation */
-        .algorithm-tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: var(--spacing-lg);
-            flex-wrap: wrap;
-            gap: var(--spacing-sm);
-        }
-
-        .tab-btn {
-            padding: var(--spacing-sm) var(--spacing-md);
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-base);
-            font-size: var(--font-size-base);
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-            backdrop-filter: blur(var(--blur-amount));
-        }
-
-        .tab-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, var(--secondary-color), var(--info-color));
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
-        }
-
-        /* Mode Switcher */
-        .mode-switcher {
-            display: flex;
-            margin-bottom: var(--spacing-lg);
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: var(--spacing-xs);
-            backdrop-filter: blur(var(--blur-amount));
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mode-btn {
-            flex: 1;
-            padding: var(--spacing-sm) var(--spacing-md);
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-base);
-            font-size: var(--font-size-base);
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--spacing-xs);
-        }
-
-        .mode-btn:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .mode-btn.active {
-            background: linear-gradient(135deg, var(--secondary-color), var(--info-color));
-            color: white;
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* Tab Content */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Algorithm Cards */
-        .algorithm-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: var(--spacing-xl);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 900px;
-            margin: 0 auto;
-            backdrop-filter: blur(var(--blur-amount));
-            position: relative;
-            overflow: hidden;
-            animation: slideUp 0.5s ease-out forwards;
-        }
-
-        .algorithm-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--secondary-color), var(--info-color));
-        }
-
-        .algorithm-header {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: var(--spacing-lg);
-            gap: var(--spacing-md);
-        }
-
-        .algorithm-icon {
-            font-size: var(--font-size-xxl);
-            color: var(--secondary-color);
-            flex-shrink: 0;
-        }
-
-        .algorithm-title {
-            font-size: var(--font-size-xxl);
-            font-weight: 700;
-            margin-bottom: var(--spacing-sm);
-            color: var(--light-color);
-        }
-
-        .algorithm-desc {
-            font-size: var(--font-size-base);
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: var(--spacing-lg);
-            line-height: 1.8;
-        }
-
-        /* Form Elements */
-        .input-section {
-            margin-bottom: var(--spacing-lg);
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: var(--spacing-sm);
-            font-size: var(--font-size-lg);
-            color: var(--light-color);
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: var(--spacing-md) var(--spacing-lg);
-            font-size: var(--font-size-base);
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background-color: rgba(0, 0, 0, 0.3);
-            color: var(--light-color);
-            transition: var(--transition-base);
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3);
-            outline: none;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        /* Key Display */
-        .key-box {
-            background-color: rgba(0, 0, 0, 0.4);
-            border-left: 4px solid var(--warning-color);
-            padding: var(--spacing-md);
-            border-radius: 10px;
-            margin-bottom: var(--spacing-lg);
-            font-size: var(--font-size-base);
-            color: var(--light-color);
-            position: relative;
-        }
-
-        .key-pair {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-xs);
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .key-pair:last-child {
-            margin-bottom: 0;
-        }
-
-        .key-label {
-            font-weight: 600;
-            color: var(--warning-color);
-            font-size: var(--font-size-base);
-        }
-
-        .key-value {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: var(--secondary-color);
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: var(--spacing-sm);
-            border-radius: 5px;
-            word-break: break-all;
-            white-space: pre-wrap;
-        }
-
-        /* Output Display */
-        .output-box {
-            background-color: rgba(0, 0, 0, 0.4);
-            padding: var(--spacing-lg);
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            margin: var(--spacing-lg) 0;
-            color: var(--light-color);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            word-break: break-all;
-            position: relative;
-            min-height: 80px;
-            font-size: var(--font-size-base);
-        }
-
-        .output-box::before {
-            content: 'Result';
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            background-color: var(--primary-color);
-            padding: 0 var(--spacing-md);
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            font-weight: 600;
-        }
-
-        /* Buttons */
-        button {
-            background: linear-gradient(135deg, var(--secondary-color), var(--info-color));
-            color: white;
-            border: none;
-            padding: var(--spacing-md) var(--spacing-lg);
-            font-weight: 600;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: var(--transition-base);
-            width: 100%;
-            font-size: var(--font-size-lg);
-            margin-top: var(--spacing-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--spacing-sm);
-            box-shadow: var(--shadow-md);
-        }
-
-        button:hover {
-            background: linear-gradient(135deg, #2980b9, #3498db);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .button-group {
-            display: flex;
-            gap: var(--spacing-sm);
-            margin: var(--spacing-lg) 0;
-        }
-
-        .button-group button {
-            flex: 1;
-            margin: 0;
-        }
-
-        /* Animations */
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-container {
-                padding: var(--spacing-lg) var(--spacing-sm);
-            }
-
-            .algorithm-card {
-                padding: var(--spacing-md);
-            }
-
-            .algorithm-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .algorithm-icon {
-                margin-bottom: var(--spacing-sm);
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-        }
-
-        /* Loading State */
-        .loading {
-            position: relative;
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: inherit;
-        }
-
-        /* Copy to Clipboard Button */
-        .copy-btn {
-            position: absolute;
-            top: var(--spacing-sm);
-            right: var(--spacing-sm);
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition-base);
-        }
-
-        .copy-btn:hover {
-            background: var(--secondary-color);
-        }
-
-        /* Verification Result */
-        .verification-success {
-            color: var(--success-color);
-            font-weight: 600;
-        }
-
-        .verification-failure {
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-
-
-        /* Basic styles if CSS file fails to load */
-        .loading {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-        .copy-btn {
-            background: none;
-            border: none;
-            color: #666;
-            cursor: pointer;
-            margin-left: 8px;
-        }
-        .copy-btn:hover {
-            color: #333;
-        }
-        .verification-success {
-            color: green;
-        }
-        .verification-failure {
-            color: red;
-        }
-        .key-value {
-            word-break: break-all;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="main-container">
@@ -507,7 +14,7 @@
         <img src="image/img.png" alt="Encryption Logo" class="logo-inside">
         <h1 class="title">Advanced Encryption System</h1>
         <p class="subtitle">A comprehensive tool for data encryption using modern security algorithms with LCG key generation</p>
-        <p class="subtitle">Supervised by Dr. Abeer Hassan</p>
+        <p class="supervise">Supervised by Dr. Abeer Hassan</p>
     </div>
 
     <!-- Algorithm Tabs -->
@@ -548,7 +55,8 @@
         <div id="cbc-encrypt-panel" class="tab-content active">
             <div class="input-section">
                 <label for="cbc-inputText">Text to encrypt:</label>
-                <input type="text" id="cbc-inputText" placeholder="Enter the text you want to encrypt with CBC..." required>
+                <input type="text" id="cbc-inputText" placeholder="Enter the text you want to encrypt with CBC..." required maxlength="500">
+                <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
             </div>
 
             <div class="key-box">
@@ -567,12 +75,14 @@
         <div id="cbc-decrypt-panel" class="tab-content">
             <div class="input-section">
                 <label for="cbc-inputCipher">Cipher to decrypt:</label>
-                <input type="text" id="cbc-inputCipher" placeholder="Enter the cipher text you want to decrypt..." required>
+                <input type="text" id="cbc-inputCipher" placeholder="Enter the cipher text you want to decrypt..." required maxlength="1000">
+                <span class="error-message">Please enter valid cipher text (1-1000 characters, no HTML)</span>
             </div>
 
             <div class="input-section">
                 <label for="cbc-inputKey">Decryption Key:</label>
-                <input type="text" id="cbc-inputKey" placeholder="Enter the decryption key..." required>
+                <input type="text" id="cbc-inputKey" placeholder="Enter the decryption key..." required maxlength="100">
+                <span class="error-message">Please enter valid key (1-100 characters, no HTML)</span>
             </div>
 
             <button onclick="decryptCBC()">
@@ -605,17 +115,18 @@
         <div id="rsa-encrypt-panel" class="tab-content active">
             <div class="input-section">
                 <label for="rsa-inputText">Text to encrypt:</label>
-                <input type="text" id="rsa-inputText" placeholder="Enter the text you want to encrypt with RSA..." required>
+                <input type="text" id="rsa-inputText" placeholder="Enter the text you want to encrypt with RSA..." required maxlength="500">
+                <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
             </div>
 
             <div class="key-box">
                 <div class="key-pair">
-                    <span class="key-label">Public Key:</span>
-                    <span id="rsa-public-key" class="key-value">Not available yet</span>
-                </div>
-                <div class="key-pair">
                     <span class="key-label">Private Key:</span>
                     <span id="rsa-private-key" class="key-value">Hidden for security reasons</span>
+                </div>
+                <div class="key-pair">
+                    <span class="key-label">Public Key:</span>
+                    <span id="rsa-public-key" class="key-value">Not available yet</span>
                 </div>
             </div>
 
@@ -630,12 +141,14 @@
         <div id="rsa-decrypt-panel" class="tab-content">
             <div class="input-section">
                 <label for="rsa-inputCipher">Cipher to decrypt:</label>
-                <input type="text" id="rsa-inputCipher" placeholder="Enter the cipher text you want to decrypt..." required>
+                <input type="text" id="rsa-inputCipher" placeholder="Enter the cipher text you want to decrypt..." required maxlength="1000">
+                <span class="error-message">Please enter valid cipher text (1-1000 characters, no HTML)</span>
             </div>
 
             <div class="input-section">
                 <label for="rsa-inputPrivateKey">Private Key:</label>
-                <input type="text" id="rsa-inputPrivateKey"  class="key-value" placeholder="Enter your private key..." required>
+                <input type="text" id="rsa-inputPrivateKey" class="key-value" placeholder="Enter your private key..." required maxlength="1000">
+                <span class="error-message">Please enter valid private key (1-1000 characters, no HTML)</span>
             </div>
 
             <button onclick="decryptRSA()">
@@ -668,17 +181,18 @@
         <div id="rsa-generator-encrypt-panel" class="tab-content active">
             <div class="input-section">
                 <label for="rsa-generator-inputText">Text to encrypt:</label>
-                <input type="text" id="rsa-generator-inputText" placeholder="Enter the text you want to encrypt with RSA..." required>
+                <input type="text" id="rsa-generator-inputText" placeholder="Enter the text you want to encrypt with RSA..." required maxlength="500">
+                <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
             </div>
 
             <div class="key-box">
                 <div class="key-pair">
-                    <span class="key-label">Public Key:</span>
-                    <span id="rsa-generator-public-key" class="key-value">Not available yet</span>
-                </div>
-                <div class="key-pair">
                     <span class="key-label">Private Key:</span>
                     <span id="rsa-generator-private-key" class="key-value">Hidden for security reasons</span>
+                </div>
+                <div class="key-pair">
+                    <span class="key-label">Public Key:</span>
+                    <span id="rsa-generator-public-key" class="key-value">Not available yet</span>
                 </div>
             </div>
 
@@ -693,12 +207,14 @@
         <div id="rsa-generator-decrypt-panel" class="tab-content">
             <div class="input-section">
                 <label for="rsa-generator-inputCipher">Cipher to decrypt:</label>
-                <input type="text" id="rsa-generator-inputCipher" placeholder="Enter the cipher text you want to decrypt..." required>
+                <input type="text" id="rsa-generator-inputCipher" placeholder="Enter the cipher text you want to decrypt..." required maxlength="1000">
+                <span class="error-message">Please enter valid cipher text (1-1000 characters, no HTML)</span>
             </div>
 
             <div class="input-section">
                 <label for="rsa-generator-inputPrivateKey">Private Key:</label>
-                <input type="text" id="rsa-generator-inputPrivateKey" placeholder="Enter your private key..." required>
+                <input type="text" id="rsa-generator-inputPrivateKey" placeholder="Enter your private key..." required maxlength="1000">
+                <span class="error-message">Please enter valid private key (1-1000 characters, no HTML)</span>
             </div>
 
             <button onclick="decryptRSAGenerator()">
@@ -732,7 +248,8 @@
         <div id="sha1-hash-panel" class="tab-content active">
             <div class="input-section">
                 <label for="sha1-inputText">Text to hash:</label>
-                <input type="text" id="sha1-inputText" placeholder="Enter the text you want to hash with SHA-1..." required>
+                <input type="text" id="sha1-inputText" placeholder="Enter the text you want to hash with SHA-1..." required maxlength="500">
+                <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
             </div>
 
             <button onclick="hashSHA1()">
@@ -746,12 +263,14 @@
         <div id="sha1-verify-panel" class="tab-content">
             <div class="input-section">
                 <label for="sha1-verify-inputText">Original Text:</label>
-                <input type="text" id="sha1-verify-inputText" placeholder="Enter the original text..." required>
+                <input type="text" id="sha1-verify-inputText" placeholder="Enter the original text..." required maxlength="500">
+                <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
             </div>
 
             <div class="input-section">
                 <label for="sha1-verify-inputHash">Hash to verify:</label>
-                <input type="text" id="sha1-verify-inputHash" placeholder="Enter the hash to verify..." required>
+                <input type="text" id="sha1-verify-inputHash" placeholder="Enter the hash to verify..." required maxlength="40">
+                <span class="error-message">Please enter valid SHA-1 hash (1-40 characters, hexadecimal)</span>
             </div>
 
             <button onclick="verifySHA1()">
@@ -761,461 +280,8 @@
             <div class="output-box" id="sha1-verify-output">Verification result will appear here</div>
         </div>
     </div>
+
 </div>
-<script>
-    // Algorithm switching
-    function openAlgorithm(algorithm) {
-        // Hide all panels
-        document.getElementById('cbc-panel').style.display = 'none';
-        document.getElementById('rsa-panel').style.display = 'none';
-        document.getElementById('rsa-generator-panel').style.display = 'none';
-        document.getElementById('sha1-panel').style.display = 'none';
-
-        // Show selected panel
-        document.getElementById(algorithm + '-panel').style.display = 'block';
-
-        // Update tab buttons
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-    }
-
-    // Mode switching within algorithm
-    function switchMode(algorithm, mode) {
-        // Update mode buttons
-        const modeButtons = document.querySelectorAll(`#${algorithm}-panel .mode-btn`);
-        modeButtons.forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-
-        // Hide all mode panels for this algorithm
-        const modePanels = document.querySelectorAll(`#${algorithm}-panel .tab-content`);
-        modePanels.forEach(panel => panel.classList.remove('active'));
-
-        // Show selected mode panel
-        document.getElementById(`${algorithm}-${mode}-panel`).classList.add('active');
-    }
-
-    // Animation on load
-    document.addEventListener('DOMContentLoaded', function () {
-        const cards = document.querySelectorAll('.algorithm-card');
-        cards.forEach((card, index) => {
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 100 * index);
-        });
-    });
-
-    // AJAX functions
-    function encryptCBC() {
-        const inputText = document.getElementById('cbc-inputText').value;
-        const button = event.currentTarget;
-
-        if (!inputText) {
-            alert('Please enter text to encrypt');
-            return;
-        }
-
-        // Show loading state
-        button.classList.add('loading');
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Encrypting...';
-
-        fetch('/encrypt/cbc', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputText })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('cbc-key').textContent = data.cbcKey;
-                document.getElementById('cbc-encrypt-output').textContent = data.cbcEncryptedText;
-                // Auto-fill the decryption key field for convenience
-                document.getElementById('cbc-inputKey').value = data.cbcKey;
-
-                // Add copy button functionality
-                addCopyButton('cbc-encrypt-output');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('cbc-encrypt-output').textContent = 'Error: ' + error.message;
-            })
-            .finally(() => {
-                button.classList.remove('loading');
-                button.innerHTML = '<i class="fas fa-lock"></i> Encrypt with CBC';
-            });
-    }
-
-    function decryptCBC() {
-        const inputCipher = document.getElementById('cbc-inputCipher').value;
-        const key = document.getElementById('cbc-inputKey').value;
-        const button = event.currentTarget;
-
-        if (!inputCipher) {
-            alert('Please enter cipher text to decrypt');
-            return;
-        }
-
-        if (!key) {
-            alert('Please enter the decryption key');
-            return;
-        }
-
-        // Show loading state
-        button.classList.add('loading');
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Decrypting...';
-
-        fetch('/decrypt/cbc', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputCipher, key })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('cbc-decrypt-output').textContent = data.cbcDecryptedText;
-                // Add copy button functionality
-                addCopyButton('cbc-decrypt-output');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('cbc-decrypt-output').textContent = 'Error: ' + error.message;
-            })
-            .finally(() => {
-                button.classList.remove('loading');
-                button.innerHTML = '<i class="fas fa-unlock"></i> Decrypt with CBC';
-            });
-    }
-
-    function encryptRSA() {
-        const inputText = document.getElementById('rsa-inputText').value;
-        const button = event.currentTarget;
-
-        if (!inputText) {
-            alert('Please enter text to encrypt');
-            return;
-        }
-
-        // Show loading state
-        button.classList.add('loading');
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Encrypting...';
-
-        fetch('/encrypt/rsa', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputText })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('rsa-public-key').textContent = data.rsaPublicKey;
-                document.getElementById('rsa-private-key').textContent = data.rsaPrivateKey;
-                document.getElementById('rsa-encrypt-output').textContent = data.rsaEncryptedText;
-                // Auto-fill the private key field for convenience
-                document.getElementById('rsa-inputPrivateKey').value = data.rsaPrivateKey;
-
-                // Add copy buttons
-                addCopyButton('rsa-public-key');
-                addCopyButton('rsa-private-key');
-                addCopyButton('rsa-encrypt-output');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('rsa-encrypt-output').textContent = 'Error: ' + error.message;
-            })
-            .finally(() => {
-                button.classList.remove('loading');
-                button.innerHTML = '<i class="fas fa-user-lock"></i> Encrypt with RSA';
-            });
-    }
-
-    function decryptRSA() {
-        const inputCipher = document.getElementById('rsa-inputCipher').value;
-        const privateKey = document.getElementById('rsa-inputPrivateKey').value;
-        const button = event.currentTarget;
-
-        if (!inputCipher) {
-            alert('Please enter cipher text to decrypt');
-            return;
-        }
-
-        if (!privateKey) {
-            alert('Please enter the private key');
-            return;
-        }
-
-        // Show loading state
-        button.classList.add('loading');
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Decrypting...';
-
-        fetch('/decrypt/rsa', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputCipher, privateKey })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('rsa-decrypt-output').textContent = data.rsaDecryptedText;
-                addCopyButton('rsa-decrypt-output');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('rsa-decrypt-output').textContent = 'Error: ' + error.message;
-            })
-            .finally(() => {
-                button.classList.remove('loading');
-                button.innerHTML = '<i class="fas fa-user-unlock"></i> Decrypt with RSA';
-            });
-    }
-
-    function encryptRSAGenerator() {
-        const inputText = document.getElementById('rsa-generator-inputText').value;
-        const button = event.currentTarget;
-
-        if (!inputText) {
-            alert('Please enter text to encrypt');
-            return;
-        }
-
-        // Show loading state
-        button.classList.add('loading');
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Encrypting...';
-
-        fetch('/encrypt/rsa-generator', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputText })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('rsa-generator-public-key').textContent = data.rsaPublicKey;
-                document.getElementById('rsa-generator-private-key').textContent = data.rsaPrivateKey;
-                document.getElementById('rsa-generator-encrypt-output').textContent = data.rsaEncryptedText;
-                // Auto-fill the private key field for convenience
-                document.getElementById('rsa-generator-inputPrivateKey').value = data.rsaPrivateKey;
-
-                // Add copy buttons
-                addCopyButton('rsa-generator-public-key');
-                addCopyButton('rsa-generator-private-key');
-                addCopyButton('rsa-generator-encrypt-output');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('rsa-generator-encrypt-output').textContent = 'Error: ' + error.message;
-            })
-            .finally(() => {
-                button.classList.remove('loading');
-                button.innerHTML = '<i class="fas fa-user-lock"></i> Encrypt with RSA';
-            });
-    }
-
-    function decryptRSAGenerator() {
-        const inputCipher = document.getElementById('rsa-generator-inputCipher').value;
-        const privateKey = document.getElementById('rsa-generator-inputPrivateKey').value;
-        const button = event.currentTarget;
-
-        if (!inputCipher) {
-            alert('Please enter cipher text to decrypt');
-            return;
-        }
-
-        if (!privateKey) {
-            alert('Please enter the private key');
-            return;
-        }
-
-        // Show loading state
-        button.classList.add('loading');
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Decrypting...';
-
-        fetch('/decrypt/rsa-generator', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputCipher, privateKey })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('rsa-generator-decrypt-output').textContent = data.rsaDecryptedText;
-                addCopyButton('rsa-generator-decrypt-output');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('rsa-generator-decrypt-output').textContent = 'Error: ' + error.message;
-            })
-            .finally(() => {
-                button.classList.remove('loading');
-                button.innerHTML = '<i class="fas fa-user-unlock"></i> Decrypt with RSA';
-            });
-    }
-
-    function hashSHA1() {
-        const inputText = document.getElementById('sha1-inputText').value;
-        const button = event.currentTarget;
-
-        if (!inputText) {
-            alert('Please enter text to hash');
-            return;
-        }
-
-        // Show loading state
-        button.classList.add('loading');
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Hashing...';
-
-        fetch('/encrypt/sha1', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputText })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('sha1-hash-output').textContent = data.sha1HashedText;
-                // Auto-fill the verify fields for convenience
-                document.getElementById('sha1-verify-inputText').value = inputText;
-                document.getElementById('sha1-verify-inputHash').value = data.sha1HashedText;
-
-                // Add copy button functionality
-                addCopyButton('sha1-hash-output');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('sha1-hash-output').textContent = 'Error: ' + error.message;
-            })
-            .finally(() => {
-                button.classList.remove('loading');
-                button.innerHTML = '<i class="fas fa-hashtag"></i> Generate SHA-1 Hash';
-            });
-    }
-
-    function verifySHA1() {
-        const inputText = document.getElementById('sha1-verify-inputText').value;
-        const inputHash = document.getElementById('sha1-verify-inputHash').value;
-        const button = event.currentTarget;
-
-        if (!inputText) {
-            alert('Please enter original text');
-            return;
-        }
-
-        if (!inputHash) {
-            alert('Please enter hash to verify');
-            return;
-        }
-
-        // Show loading state
-        button.classList.add('loading');
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
-
-        fetch('/verify/sha1', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputText, inputHash })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const outputElement = document.getElementById('sha1-verify-output');
-                if (data.isValid) {
-                    outputElement.innerHTML = '<span class="verification-success"><i class="fas fa-check-circle"></i> Hash verification successful! The text matches the hash.</span>';
-                } else {
-                    outputElement.innerHTML = '<span class="verification-failure"><i class="fas fa-times-circle"></i> Hash verification failed! The text does not match the hash.</span>';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('sha1-verify-output').innerHTML = '<span style="color: red;">Error: ' + error.message + '</span>';
-            })
-            .finally(() => {
-                button.classList.remove('loading');
-                button.innerHTML = '<i class="fas fa-check-circle"></i> Verify Hash';
-            });
-    }
-
-    // Add copy button to output elements
-    function addCopyButton(elementId) {
-        const element = document.getElementById(elementId);
-        if (!element) return;
-
-        // Remove existing copy button if any
-        const existingBtn = element.querySelector('.copy-btn');
-        if (existingBtn) existingBtn.remove();
-
-        const copyBtn = document.createElement('button');
-        copyBtn.className = 'copy-btn';
-        copyBtn.innerHTML = '<i class="far fa-copy"></i>';
-        copyBtn.title = 'Copy to clipboard';
-        copyBtn.onclick = () => {
-            const text = element.textContent || element.innerText;
-            navigator.clipboard.writeText(text.trim()).then(() => {
-                copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-                setTimeout(() => {
-                    copyBtn.innerHTML = '<i class="far fa-copy"></i>';
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy text: ', err);
-                copyBtn.innerHTML = '<i class="fas fa-times"></i>';
-                setTimeout(() => {
-                    copyBtn.innerHTML = '<i class="far fa-copy"></i>';
-                }, 2000);
-            });
-        };
-
-        // Only add if the element has content
-        if (element.textContent.trim() !== '') {
-            element.appendChild(copyBtn);
-        }
-    }
-</script>
+<script src="script.js"></script>
 </body>
 </html>
