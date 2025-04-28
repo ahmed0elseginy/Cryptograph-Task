@@ -1,11 +1,11 @@
-package com.atc;
+package com.ac;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AtcBackendApplication {
+public class MainApplication {
     public static void main(String[] args) {
-        SpringApplication.run(AtcBackendApplication.class, args);
+        SpringApplication.run(MainApplication.class, args);
     }
 }

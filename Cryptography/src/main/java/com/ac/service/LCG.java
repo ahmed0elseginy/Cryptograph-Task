@@ -1,5 +1,6 @@
-package com.atc.service;
+package com.ac.service;
 
+// Linear Congruential Generator implementation
 public class LCG {
     private long seed;
     private final long a = 1664525; // Multiplier

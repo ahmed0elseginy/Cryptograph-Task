@@ -1,4 +1,4 @@
-package com.atc.service;
+package com.ac.service;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -24,32 +24,6 @@ public class RSAService {
 
         // Generate private key using LCG
         privateKeyD = findPrivateKeyUsingLCG(publicKeyE, phi);
-    }
-
-    // Linear Congruential Generator implementation
-    private static class LCG {
-        private long seed;
-        private final long a = 75;  // Multiplier
-        private final long c = 74;  // Increment
-        private final long m = (1L << 48) - 1;  // Modulus (2^48 - 1)
-
-        public LCG(long seed) {
-            this.seed = seed;
-        }
-
-        public long nextLong() {
-            seed = (a * seed + c) % m;
-            return seed;
-        }
-
-        // Generate a string of digits for key generation
-        public String generateKey(int digits) {
-            StringBuilder sb = new StringBuilder(digits);
-            for (int i = 0; i < digits; i++) {
-                sb.append(Math.abs(nextLong() % 10));
-            }
-            return sb.toString();
-        }
     }
 
     // Find private key d using LCG to generate candidates
@@ -182,7 +156,8 @@ public class RSAService {
                 int b = 0;
                 for (int j = 0; j < 4 && (i + j) < input.length(); j++) {
                     int index = base64Chars.indexOf(input.charAt(i + j));
-                    if (index == -1) throw new IllegalArgumentException("Invalid Base64 character at position " + (i + j));
+                    if (index == -1)
+                        throw new IllegalArgumentException("Invalid Base64 character at position " + (i + j));
                     b |= index << (18 - (j * 6));
                 }
 

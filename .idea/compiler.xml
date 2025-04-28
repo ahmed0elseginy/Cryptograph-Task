@@ -9,13 +9,13 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
         </processorPath>
-        <module name="atc-backend" />
+        <module name="Cryptography" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="atc-backend" options="-parameters" />
+      <module name="Cryptography" options="-parameters" />
     </option>
   </component>
 </project>

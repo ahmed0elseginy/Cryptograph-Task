@@ -1,10 +1,10 @@
-package com.atc;
+package com.ac;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AtcBackendApplicationTests {
+class MainApplicationTests {
 
 	@Test
 	void contextLoads() {

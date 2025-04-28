@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.atc</groupId>
-	<artifactId>atc-backend</artifactId>
+	<artifactId>Cryptography</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>atc-backend</name>
 	<description>atc-backend</description>

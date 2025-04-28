@@ -8,17 +8,22 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<script src="script.js"></script>
 <div class="main-container">
     <!-- Header Section -->
     <div class="header">
         <img src="image/img.png" alt="Encryption Logo" class="logo-inside">
         <h1 class="title">Advanced Encryption System</h1>
-        <p class="subtitle">A comprehensive tool for data encryption using modern security algorithms with LCG key generation</p>
+        <p class="subtitle">A comprehensive tool for data encryption using modern security algorithms with LCG key
+            generation</p>
         <p class="supervise">Supervised by Dr. Abeer Hassan</p>
     </div>
 
     <!-- Algorithm Tabs -->
     <div class="algorithm-tabs">
+        <button class="tab-btn" onclick="openAlgorithm('sha1')">
+            <i class="fas fa-fingerprint"></i> SHA-1
+        </button>
         <button class="tab-btn active" onclick="openAlgorithm('cbc')">
             <i class="fas fa-link"></i> CBC
         </button>
@@ -28,9 +33,67 @@
         <button class="tab-btn" onclick="openAlgorithm('rsa-generator')">
             <i class="fas fa-key"></i> RSA Generator
         </button>
-        <button class="tab-btn" onclick="openAlgorithm('sha1')">
-            <i class="fas fa-fingerprint"></i> SHA-1
-        </button>
+    </div>
+
+    <!-- SHA-1 Algorithm Panel -->
+    <div id="sha1-panel" class="algorithm-card" style="display: none;">
+        <div class="algorithm-header">
+            <i class="fas fa-fingerprint algorithm-icon"></i>
+            <div>
+                <h3 class="algorithm-title">SHA-1 (Secure Hash Algorithm)</h3>
+                <p class="algorithm-desc">
+                    A cryptographic hash function that produces a 160-bit (20-byte) hash value known as a message
+                    digest.
+                    While no longer considered secure against well-funded attackers, it's still useful for checksums and
+                    data integrity verification.
+                    The LCG generator may be used to create salt values when needed.
+                </p>
+            </div>
+        </div>
+
+        <div class="mode-switcher">
+            <button class="mode-btn active" onclick="switchMode('sha1', 'hash')">Generate Hash</button>
+            <button class="mode-btn" onclick="switchMode('sha1', 'verify')">Verify Hash</button>
+        </div>
+
+        <!-- SHA-1 Hash Panel -->
+        <div id="sha1-hash-panel" class="tab-content active">
+            <div class="input-section">
+                <label for="sha1-inputText">Text to hash:</label>
+                <input type="text" id="sha1-inputText" placeholder="Enter the text you want to hash with SHA-1..."
+                       required maxlength="500">
+                <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
+            </div>
+
+            <button onclick="hashSHA1()">
+                <i class="fas fa-hashtag"></i> Generate SHA-1 Hash
+            </button>
+
+            <div class="output-box" id="sha1-hash-output">Hash result will appear here</div>
+        </div>
+
+        <!-- SHA-1 Verify Panel -->
+        <div id="sha1-verify-panel" class="tab-content">
+            <div class="input-section">
+                <label for="sha1-verify-inputText">Original Text:</label>
+                <input type="text" id="sha1-verify-inputText" placeholder="Enter the original text..." required
+                       maxlength="500">
+                <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
+            </div>
+
+            <div class="input-section">
+                <label for="sha1-verify-inputHash">Hash to verify:</label>
+                <input type="text" id="sha1-verify-inputHash" placeholder="Enter the hash to verify..." required
+                       maxlength="40">
+                <span class="error-message">Please enter valid SHA-1 hash (1-40 characters, hexadecimal)</span>
+            </div>
+
+            <button onclick="verifySHA1()">
+                <i class="fas fa-check-circle"></i> Verify Hash
+            </button>
+
+            <div class="output-box" id="sha1-verify-output">Verification result will appear here</div>
+        </div>
     </div>
 
     <!-- CBC Algorithm Panel -->
@@ -40,8 +103,10 @@
             <div>
                 <h3 class="algorithm-title">CBC (Cipher Block Chaining)</h3>
                 <p class="algorithm-desc">
-                    A block cipher mode that provides confidentiality by XORing each plaintext block with the previous ciphertext block before encryption.
-                    Uses an Initialization Vector (IV) for the first block. The LCG generator provides the encryption key for enhanced security.
+                    A block cipher mode that provides confidentiality by XORing each plaintext block with the previous
+                    ciphertext block before encryption.
+                    Uses an Initialization Vector (IV) for the first block. The LCG generator provides the encryption
+                    key for enhanced security.
                 </p>
             </div>
         </div>
@@ -55,7 +120,8 @@
         <div id="cbc-encrypt-panel" class="tab-content active">
             <div class="input-section">
                 <label for="cbc-inputText">Text to encrypt:</label>
-                <input type="text" id="cbc-inputText" placeholder="Enter the text you want to encrypt with CBC..." required maxlength="500">
+                <input type="text" id="cbc-inputText" placeholder="Enter the text you want to encrypt with CBC..."
+                       required maxlength="500">
                 <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
             </div>
 
@@ -75,7 +141,8 @@
         <div id="cbc-decrypt-panel" class="tab-content">
             <div class="input-section">
                 <label for="cbc-inputCipher">Cipher to decrypt:</label>
-                <input type="text" id="cbc-inputCipher" placeholder="Enter the cipher text you want to decrypt..." required maxlength="1000">
+                <input type="text" id="cbc-inputCipher" placeholder="Enter the cipher text you want to decrypt..."
+                       required maxlength="1000">
                 <span class="error-message">Please enter valid cipher text (1-1000 characters, no HTML)</span>
             </div>
 
@@ -101,7 +168,8 @@
                 <h3 class="algorithm-title">RSA (Asymmetric Encryption)</h3>
                 <p class="algorithm-desc">
                     A public-key cryptosystem that uses two mathematically linked keys for secure data transmission.
-                    The LCG generator helps create the initial prime numbers used in key generation. RSA provides both encryption and digital signature capabilities.
+                    The LCG generator helps create the initial prime numbers used in key generation. RSA provides both
+                    encryption and digital signature capabilities.
                 </p>
             </div>
         </div>
@@ -115,7 +183,8 @@
         <div id="rsa-encrypt-panel" class="tab-content active">
             <div class="input-section">
                 <label for="rsa-inputText">Text to encrypt:</label>
-                <input type="text" id="rsa-inputText" placeholder="Enter the text you want to encrypt with RSA..." required maxlength="500">
+                <input type="text" id="rsa-inputText" placeholder="Enter the text you want to encrypt with RSA..."
+                       required maxlength="500">
                 <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
             </div>
 
@@ -141,13 +210,15 @@
         <div id="rsa-decrypt-panel" class="tab-content">
             <div class="input-section">
                 <label for="rsa-inputCipher">Cipher to decrypt:</label>
-                <input type="text" id="rsa-inputCipher" placeholder="Enter the cipher text you want to decrypt..." required maxlength="1000">
+                <input type="text" id="rsa-inputCipher" placeholder="Enter the cipher text you want to decrypt..."
+                       required maxlength="1000">
                 <span class="error-message">Please enter valid cipher text (1-1000 characters, no HTML)</span>
             </div>
 
             <div class="input-section">
                 <label for="rsa-inputPrivateKey">Private Key:</label>
-                <input type="text" id="rsa-inputPrivateKey" class="key-value" placeholder="Enter your private key..." required maxlength="1000">
+                <input type="text" id="rsa-inputPrivateKey" class="key-value" placeholder="Enter your private key..."
+                       required maxlength="1000">
                 <span class="error-message">Please enter valid private key (1-1000 characters, no HTML)</span>
             </div>
 
@@ -167,7 +238,8 @@
                 <h3 class="algorithm-title">RSA Generator (Asymmetric Encryption)</h3>
                 <p class="algorithm-desc">
                     A public-key cryptosystem that uses two mathematically linked keys for secure data transmission.
-                    The LCG generator helps create the initial prime numbers used in key generation. RSA provides both encryption and digital signature capabilities.
+                    The LCG generator helps create the initial prime numbers used in key generation. RSA provides both
+                    encryption and digital signature capabilities.
                 </p>
             </div>
         </div>
@@ -181,7 +253,8 @@
         <div id="rsa-generator-encrypt-panel" class="tab-content active">
             <div class="input-section">
                 <label for="rsa-generator-inputText">Text to encrypt:</label>
-                <input type="text" id="rsa-generator-inputText" placeholder="Enter the text you want to encrypt with RSA..." required maxlength="500">
+                <input type="text" id="rsa-generator-inputText"
+                       placeholder="Enter the text you want to encrypt with RSA..." required maxlength="500">
                 <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
             </div>
 
@@ -207,13 +280,15 @@
         <div id="rsa-generator-decrypt-panel" class="tab-content">
             <div class="input-section">
                 <label for="rsa-generator-inputCipher">Cipher to decrypt:</label>
-                <input type="text" id="rsa-generator-inputCipher" placeholder="Enter the cipher text you want to decrypt..." required maxlength="1000">
+                <input type="text" id="rsa-generator-inputCipher"
+                       placeholder="Enter the cipher text you want to decrypt..." required maxlength="1000">
                 <span class="error-message">Please enter valid cipher text (1-1000 characters, no HTML)</span>
             </div>
 
             <div class="input-section">
                 <label for="rsa-generator-inputPrivateKey">Private Key:</label>
-                <input type="text" id="rsa-generator-inputPrivateKey" placeholder="Enter your private key..." required maxlength="1000">
+                <input type="text" id="rsa-generator-inputPrivateKey" placeholder="Enter your private key..." required
+                       maxlength="1000">
                 <span class="error-message">Please enter valid private key (1-1000 characters, no HTML)</span>
             </div>
 
@@ -225,63 +300,6 @@
         </div>
     </div>
 
-    <!-- SHA-1 Algorithm Panel -->
-    <div id="sha1-panel" class="algorithm-card" style="display: none;">
-        <div class="algorithm-header">
-            <i class="fas fa-fingerprint algorithm-icon"></i>
-            <div>
-                <h3 class="algorithm-title">SHA-1 (Secure Hash Algorithm)</h3>
-                <p class="algorithm-desc">
-                    A cryptographic hash function that produces a 160-bit (20-byte) hash value known as a message digest.
-                    While no longer considered secure against well-funded attackers, it's still useful for checksums and data integrity verification.
-                    The LCG generator may be used to create salt values when needed.
-                </p>
-            </div>
-        </div>
-
-        <div class="mode-switcher">
-            <button class="mode-btn active" onclick="switchMode('sha1', 'hash')">Generate Hash</button>
-            <button class="mode-btn" onclick="switchMode('sha1', 'verify')">Verify Hash</button>
-        </div>
-
-        <!-- SHA-1 Hash Panel -->
-        <div id="sha1-hash-panel" class="tab-content active">
-            <div class="input-section">
-                <label for="sha1-inputText">Text to hash:</label>
-                <input type="text" id="sha1-inputText" placeholder="Enter the text you want to hash with SHA-1..." required maxlength="500">
-                <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
-            </div>
-
-            <button onclick="hashSHA1()">
-                <i class="fas fa-hashtag"></i> Generate SHA-1 Hash
-            </button>
-
-            <div class="output-box" id="sha1-hash-output">Hash result will appear here</div>
-        </div>
-
-        <!-- SHA-1 Verify Panel -->
-        <div id="sha1-verify-panel" class="tab-content">
-            <div class="input-section">
-                <label for="sha1-verify-inputText">Original Text:</label>
-                <input type="text" id="sha1-verify-inputText" placeholder="Enter the original text..." required maxlength="500">
-                <span class="error-message">Please enter valid text (1-500 characters, no HTML)</span>
-            </div>
-
-            <div class="input-section">
-                <label for="sha1-verify-inputHash">Hash to verify:</label>
-                <input type="text" id="sha1-verify-inputHash" placeholder="Enter the hash to verify..." required maxlength="40">
-                <span class="error-message">Please enter valid SHA-1 hash (1-40 characters, hexadecimal)</span>
-            </div>
-
-            <button onclick="verifySHA1()">
-                <i class="fas fa-check-circle"></i> Verify Hash
-            </button>
-
-            <div class="output-box" id="sha1-verify-output">Verification result will appear here</div>
-        </div>
-    </div>
-
 </div>
-<script src="script.js"></script>
 </body>
 </html>

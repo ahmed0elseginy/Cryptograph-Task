@@ -45,9 +45,8 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
-    background:
-            linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-            url('image/img_1.png') no-repeat center center fixed;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('image/uni.png') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -421,13 +420,21 @@ button:active {
 
 /* Animations */
 @keyframes pulse {
-    from { transform: scale(1); }
-    to { transform: scale(1.05); }
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.05);
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideUp {
@@ -543,6 +550,7 @@ button:active {
     opacity: 0.7;
     cursor: not-allowed;
 }
+
 .copy-btn {
     background: none;
     border: none;
@@ -550,15 +558,19 @@ button:active {
     cursor: pointer;
     margin-left: 8px;
 }
+
 .copy-btn:hover {
     color: #08b7e5;
 }
+
 .verification-success {
     color: green;
 }
+
 .verification-failure {
     color: red;
 }
+
 .key-value {
     word-break: break-all;
 }

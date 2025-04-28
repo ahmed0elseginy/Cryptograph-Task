@@ -1,6 +1,6 @@
-package com.atc.controller;
+package com.ac.controller;
 
-import com.atc.service.*;
+import com.ac.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
